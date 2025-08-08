@@ -1,0 +1,71 @@
+# Ignorar arquivos de build
+build/
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile
+*.vcxproj*
+*.sln
+*.dir/
+
+# Ignorar arquivos do Qt
+*.pro.user*
+*.qmake.stash
+moc_*
+qrc_*
+ui_*
+
+# Ignorar executáveis
+*.exe
+*.dll
+*.so
+*.dylib
+
+# Ignorar arquivos de debug
+*.pdb
+*.ilk
+
+# Ignorar arquivos temporários
+*.tmp
+*.temp
+*~
+.#*
+
+# Ignorar arquivos do sistema
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Ignorar arquivos do Visual Studio
+.vs/
+*.user
+*.suo
+*.ncb
+*.aps
+*.clw
+*.tags
+
+# Ignorar arquivos do Qt Creator
+*.pro.user*
+*.qbs.user
+*.creator.user*
+
+# Ignorar backup do banco de dados
+*.db.backup
+*.sqlite.backup
+
+# Ignorar logs
+*.log
+logs/
+
+# Ignorar arquivos de configuração local
+config.local.json
+settings.local.ini
+
+# Ignorar diretório de packages
+packages/
+conan/
+
+# Ignorar cache
+.cache/
+*.cache

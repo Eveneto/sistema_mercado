@@ -1,0 +1,221 @@
+/* Estilo para o Sistema Mercado */
+
+/* Janela Principal */
+QMainWindow {
+    background-color: #f5f5f5;
+}
+
+/* Botões */
+QPushButton {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
+QPushButton:hover {
+    background-color: #2980b9;
+}
+
+QPushButton:pressed {
+    background-color: #21618c;
+}
+
+QPushButton:disabled {
+    background-color: #bdc3c7;
+}
+
+/* Botões de Ação */
+QPushButton#btn_nova_venda {
+    background-color: #27ae60;
+    font-size: 14px;
+    padding: 12px 20px;
+}
+
+QPushButton#btn_nova_venda:hover {
+    background-color: #229954;
+}
+
+QPushButton#btn_cadastro_produto {
+    background-color: #e67e22;
+}
+
+QPushButton#btn_cadastro_produto:hover {
+    background-color: #d35400;
+}
+
+QPushButton#btn_relatorio_vendas {
+    background-color: #8e44ad;
+}
+
+QPushButton#btn_relatorio_vendas:hover {
+    background-color: #7d3c98;
+}
+
+/* Campos de Entrada */
+QLineEdit, QComboBox, QDateEdit, QSpinBox, QDoubleSpinBox {
+    padding: 8px;
+    border: 2px solid #bdc3c7;
+    border-radius: 4px;
+    background-color: white;
+}
+
+QLineEdit:focus, QComboBox:focus, QDateEdit:focus, QSpinBox:focus, QDoubleSpinBox:focus {
+    border-color: #3498db;
+}
+
+/* Tabelas */
+QTableWidget {
+    background-color: white;
+    gridline-color: #ecf0f1;
+    selection-background-color: #3498db;
+}
+
+QTableWidget::item {
+    padding: 8px;
+}
+
+QTableWidget::item:selected {
+    background-color: #3498db;
+    color: white;
+}
+
+QHeaderView::section {
+    background-color: #34495e;
+    color: white;
+    padding: 10px;
+    font-weight: bold;
+    border: none;
+}
+
+/* Grupos */
+QGroupBox {
+    font-weight: bold;
+    border: 2px solid #bdc3c7;
+    border-radius: 8px;
+    margin-top: 10px;
+    padding-top: 10px;
+}
+
+QGroupBox::title {
+    subcontrol-origin: margin;
+    left: 10px;
+    padding: 0 10px 0 10px;
+    color: #2c3e50;
+}
+
+/* Abas */
+QTabWidget::pane {
+    border: 1px solid #bdc3c7;
+    background-color: white;
+}
+
+QTabBar::tab {
+    background-color: #ecf0f1;
+    padding: 10px 20px;
+    margin-right: 2px;
+}
+
+QTabBar::tab:selected {
+    background-color: white;
+    border-bottom: 2px solid #3498db;
+}
+
+QTabBar::tab:hover {
+    background-color: #d5dbdb;
+}
+
+/* Barra de Status */
+QStatusBar {
+    background-color: #34495e;
+    color: white;
+}
+
+QStatusBar QLabel {
+    color: white;
+    padding: 4px;
+}
+
+/* Menu */
+QMenuBar {
+    background-color: #2c3e50;
+    color: white;
+}
+
+QMenuBar::item {
+    padding: 8px 12px;
+}
+
+QMenuBar::item:selected {
+    background-color: #3498db;
+}
+
+QMenu {
+    background-color: white;
+    border: 1px solid #bdc3c7;
+}
+
+QMenu::item {
+    padding: 8px 20px;
+}
+
+QMenu::item:selected {
+    background-color: #3498db;
+    color: white;
+}
+
+/* Toolbar */
+QToolBar {
+    background-color: #ecf0f1;
+    border: none;
+    spacing: 4px;
+}
+
+QToolButton {
+    background-color: transparent;
+    padding: 8px;
+    border-radius: 4px;
+}
+
+QToolButton:hover {
+    background-color: #d5dbdb;
+}
+
+QToolButton:pressed {
+    background-color: #bdc3c7;
+}
+
+/* Labels especiais */
+QLabel#titulo {
+    font-size: 18px;
+    font-weight: bold;
+    color: #2c3e50;
+    margin: 10px;
+}
+
+/* Alertas */
+QLabel#alerta_erro {
+    color: #e74c3c;
+    font-weight: bold;
+    background-color: #fadbd8;
+    padding: 8px;
+    border-radius: 4px;
+}
+
+QLabel#alerta_sucesso {
+    color: #27ae60;
+    font-weight: bold;
+    background-color: #d5f4e6;
+    padding: 8px;
+    border-radius: 4px;
+}
+
+QLabel#alerta_aviso {
+    color: #f39c12;
+    font-weight: bold;
+    background-color: #fdeaa7;
+    padding: 8px;
+    border-radius: 4px;
+}
