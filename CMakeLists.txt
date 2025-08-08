@@ -4,14 +4,26 @@ project(SistemaMercado)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# Procurar Qt6 de forma opcional
+# Procurar Qt6 ou Qt5 de forma opcional
 find_package(Qt6 QUIET COMPONENTS Core Widgets Sql)
-
-if(Qt6_FOUND)
-    message(STATUS "Qt6 encontrado")
-    qt_standard_project_setup()
+if(NOT Qt6_FOUND)
+    find_package(Qt5 QUIET COMPONENTS Core Widgets Sql)
+    if(Qt5_FOUND)
+        set(QT_VERSION_MAJOR 5)
+        message(STATUS "Qt5 encontrado")
+    endif()
 else()
-    message(WARNING "Qt6 não encontrado - construindo versão simplificada")
+    set(QT_VERSION_MAJOR 6)
+    message(STATUS "Qt6 encontrado")
+endif()
+
+if(Qt6_FOUND OR Qt5_FOUND)
+    message(STATUS "Qt${QT_VERSION_MAJOR} encontrado")
+    if(QT_VERSION_MAJOR EQUAL 6)
+        qt_standard_project_setup()
+    endif()
+else()
+    message(WARNING "Qt não encontrado - construindo versão simplificada")
     add_definitions(-DNO_QT)
 endif()
 
@@ -24,14 +36,24 @@ set(SOURCES_SIMPLE
     src/models/produto_simple.cpp
 )
 
+# Lista arquivos híbridos (funciona com e sem Qt)
+set(SOURCES_HYBRID
+    src/hybrid_main.cpp
+    src/models/produto_simple.cpp
+)
+
 # Arquivos de cabeçalho
 set(HEADERS_SIMPLE
     include/models/produto_simple.h
 )
 
-if(Qt6_FOUND)
+if(Qt6_FOUND OR Qt5_FOUND)
     # Arquivo de recursos Qt
-    qt_add_resources(RESOURCE_FILES resources/resources.qrc)
+    if(QT_VERSION_MAJOR EQUAL 6)
+        qt_add_resources(RESOURCE_FILES resources/resources.qrc)
+    else()
+        qt5_add_resources(RESOURCE_FILES resources/resources.qrc)
+    endif()
     
     # Versão completa com GUI
     set(SOURCES_GUI
@@ -44,20 +66,38 @@ if(Qt6_FOUND)
     )
     
     # Criar executável completo
-    qt_add_executable(SistemaMercado 
-        ${SOURCES_CORE} 
-        ${SOURCES_GUI} 
-        ${HEADERS_CORE} 
-        ${HEADERS_GUI}
-        ${RESOURCE_FILES}
-    )
+    if(QT_VERSION_MAJOR EQUAL 6)
+        qt_add_executable(SistemaMercado 
+            ${SOURCES_CORE} 
+            ${SOURCES_GUI} 
+            ${HEADERS_CORE} 
+            ${HEADERS_GUI}
+            ${RESOURCE_FILES}
+        )
+    else()
+        add_executable(SistemaMercado 
+            ${SOURCES_CORE} 
+            ${SOURCES_GUI} 
+            ${HEADERS_CORE} 
+            ${HEADERS_GUI}
+            ${RESOURCE_FILES}
+        )
+    endif()
     
     # Linkar bibliotecas Qt
-    target_link_libraries(SistemaMercado 
-        Qt6::Core 
-        Qt6::Widgets 
-        Qt6::Sql
-    )
+    if(QT_VERSION_MAJOR EQUAL 6)
+        target_link_libraries(SistemaMercado 
+            Qt6::Core 
+            Qt6::Widgets 
+            Qt6::Sql
+        )
+    else()
+        target_link_libraries(SistemaMercado 
+            Qt5::Core 
+            Qt5::Widgets 
+            Qt5::Sql
+        )
+    endif()
     
     # Procurar SQLite3
     find_library(SQLITE3_LIBRARY sqlite3)
@@ -69,6 +109,12 @@ else()
     # Versão simplificada - apenas console
     add_executable(SistemaMercado 
         ${SOURCES_SIMPLE} 
+        ${HEADERS_SIMPLE}
+    )
+    
+    # Versão híbrida (recomendada)
+    add_executable(SistemaMercadoHybrid 
+        ${SOURCES_HYBRID} 
         ${HEADERS_SIMPLE}
     )
 endif()
