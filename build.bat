@@ -6,10 +6,26 @@ echo Verificando dependencias...
 
 :: Tentar encontrar Qt6
 set QT_DIR=
-for /d %%i in (C:\Qt\6*) do set QT_DIR=%%i
+for /d %%i in (C:\Qt\6*) do (
+    for /d %%j in (%%i\mingw*) do (
+        set QT_DIR=%%j
+        goto found_qt6
+    )
+)
+
+:: Tentar encontrar Qt5
+for /d %%i in (C:\Qt\5*) do (
+    for /d %%j in (%%i\mingw*) do (
+        set QT_DIR=%%j
+        goto found_qt6
+    )
+)
+
+:found_qt6
 if exist "%QT_DIR%" (
-    echo Qt6 encontrado em: %QT_DIR%
+    echo Qt encontrado em: %QT_DIR%
     set CMAKE_PREFIX_PATH=%QT_DIR%\lib\cmake
+    set PATH=%QT_DIR%\bin;%PATH%
     goto :build_qt
 )
 
@@ -20,7 +36,20 @@ if exist "C:\vcpkg\installed\x64-windows\lib\cmake\Qt6" (
     goto :build_qt
 )
 
-echo Qt6 nao encontrado - construindo versao simplificada
+:: Verificar se Qt está no PATH
+where qmake >nul 2>&1
+if %errorlevel% == 0 (
+    echo Qt encontrado no PATH do sistema
+    goto :build_qt
+)
+
+echo Qt nao encontrado - construindo versao simplificada
+echo.
+echo 💡 Para instalar Qt6 automaticamente, execute:
+echo    .\install_qt6_auto.bat
+echo    ou
+echo    .\install_qt6_auto.ps1
+echo.
 goto :build_simple
 
 :build_qt
